@@ -8,7 +8,8 @@ public class DifficultyPregression : MonoBehaviour
 
     private float difficultyFactor = .01f;// Decrease movement frequency by this value
 
-    private int foodCountToIncrease = 4;  // each time we eat 4 fruits, increase the difficulty
+    private int foodCountToIncreaseSpeed = 4;  // each time we eat 4 fruits, increase player's speed
+    private int foodCountToIncreaseBombCount = 7;
     private int fruitAteCount = 0;        // keep track of number of eaten fruits
 
     private int spawnBombAfter = 2;       // start to spawn bombs after 2 eaten fruits
@@ -18,6 +19,9 @@ public class DifficultyPregression : MonoBehaviour
     private float maxBombSpawnTime = 11f;
     private float nextBombSpawnTime = 0f;
     private bool canSpawnBombs = true;    // used to prevent spawning a bomb while another bomb still exists
+
+    private int bombCount = 1;            // amount of spawning bombs
+    private int depletedCounter = 0;
 
     [SerializeField]
     private PlayerController playerController;
@@ -42,10 +46,16 @@ public class DifficultyPregression : MonoBehaviour
     {
         fruitAteCount++;
 
-        if (fruitAteCount % foodCountToIncrease == 0)
+        if (fruitAteCount % foodCountToIncreaseSpeed == 0)
         {
-            // .. Increase difficulty
+            // .. Increase player speed
             playerController.DecreaseMovementFrequency(difficultyFactor, minMovementFreq);
+        }
+
+        if (fruitAteCount % foodCountToIncreaseBombCount == 0)
+        {
+            // .. Increase number of spawned bombs at once
+            bombCount++;
         }
     }
 
@@ -66,7 +76,8 @@ public class DifficultyPregression : MonoBehaviour
             if (bombSpawnCounter + Time.time >= nextBombSpawnTime)
             {
                 // .. Invoke the bomb creation event so that PickupSpawner.cs spawns it!
-                GameManager.Instance.CreateBombEvent.Invoke();
+                depletedCounter = Random.Range(1, bombCount + 1);
+                GameManager.Instance.CreateBombEvent.Invoke(depletedCounter);
 
                 // .. Reset counter
                 bombSpawnCounter = 0f;
@@ -82,7 +93,10 @@ public class DifficultyPregression : MonoBehaviour
     /// </summary>
     private void OnBombDepleted()
     {
-        canSpawnBombs = true;
+        depletedCounter--;
+
+        if (depletedCounter == 0)
+            canSpawnBombs = true;
     }
 
     /// <summary>
@@ -90,6 +104,9 @@ public class DifficultyPregression : MonoBehaviour
     /// </summary>
     private void OnReset()
     {
+        canSpawnBombs = true;
         fruitAteCount = 0;
+        bombSpawnCounter = 0f;
+        bombCount = 1;
     }
 }

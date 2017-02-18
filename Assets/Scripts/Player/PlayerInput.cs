@@ -141,13 +141,13 @@ public class PlayerInput : MonoBehaviour
     private void OnGameOver()
     {
         enabled = false;
-        playerController.enabled = false;
+        //playerController.enabled = false;
     }
 
     private void OnReset()
     {
         enabled = true;
-        playerController.enabled = true;
+        //playerController.enabled = true;
     }
 }
 

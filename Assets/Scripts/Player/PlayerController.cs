@@ -55,18 +55,21 @@ public class PlayerController : MonoBehaviour
 
     void Update()
     {
-        counter += Time.deltaTime;
-
-        if (counter >= movementFrequency)
+        if (GameManager.Instance.gameState == GameState.Playing)
         {
-            counter = 0f;
-            move = true;
+            counter += Time.deltaTime;
+
+            if (counter >= movementFrequency)
+            {
+                counter = 0f;
+                move = true;
+            }
         }
     }
 
     void FixedUpdate()
     {
-        if (move)
+        if (move && GameManager.Instance.gameState == GameState.Playing)
         {
             move = false;
 
@@ -202,6 +205,8 @@ public class PlayerController : MonoBehaviour
     /// </summary>
     private void OnReset()
     {
+        createNodeAtTail = false;
+
         // Reset movement frequency
         movementFrequency = defaultMovementFreq;
 

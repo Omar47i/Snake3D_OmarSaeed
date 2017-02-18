@@ -9,6 +9,8 @@ public class PickupSpawner : MonoBehaviour
     private List<Pickups> pickups;      // assign all pickups in the inspector
 
     private Transform pickupsParent;    // parent of all pickups, used for scene organization and deleting them on gameover
+
+    private int bombAmount = 1;         // spawning count of bombs
     void Start()
     {
         // .. Listen to the fruite ate event to spawn a new fruit pickup
@@ -31,13 +33,18 @@ public class PickupSpawner : MonoBehaviour
         StartCoroutine(CreateFruitRandom());
     }
 
-    private void OnCreateBomb()
+    private void OnCreateBomb(int amount = 1)
     {
+        bombAmount = amount;
+
         StartCoroutine(CreateBombRandom());
     }
 
     private void OnGameCommence()
     {
+        // .. Ensure that all pickups are cleared when starting the game
+        OnGameOver();
+
         StartCoroutine(CreateFruitRandom(false));
     }
 
@@ -96,21 +103,31 @@ public class PickupSpawner : MonoBehaviour
             }
             else
             {
-                // .. We found a valid spot, create the food here
-                GameObject fruit = GameObject.Instantiate(pickups[1].prefab, newPosition, Quaternion.identity, pickupsParent);
+                // .. We found a valid spot, create the bomb here
+                GameObject bomb = ObjectsPoolManager.Instance.GetPooledObject(pickups[1].prefab, newPosition, Quaternion.identity);
+                bomb.transform.SetParent(pickupsParent);
 
                 // .. Play bomb spawn sfx
                 SoundManager.Instance.PlaySoundEffect(SoundEffectName.SPAWN_BOMB, 1f);
+
+                bombAmount--;
+                if (bombAmount != 0)        // .. Create another bomb if specified amount is more than 1
+                {               
+                    StartCoroutine(CreateBombRandom());
+                }
                 yield break;
             }
         }
     }
 
+    /// <summary>
+    /// Destroy all pickups on gameover
+    /// </summary>
     private void OnGameOver()
     {
         foreach(Transform pickup in pickupsParent)
         {
-            Destroy(pickup.gameObject);
+            ObjectsPoolManager.Instance.DestroyGameObjectWithPooledChildren(pickup.gameObject);
         }
     }
 }

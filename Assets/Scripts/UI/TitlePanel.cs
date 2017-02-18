@@ -33,7 +33,14 @@ public class TitlePanel : MonoBehaviour
     /// </summary>
     public void OnPlay()
     {
+        // .. Check if we are already playing to prevent spamming the button
+        if (GameManager.Instance.gameState == GameState.Playing)
+            return;
+
+        // .. Change game state to playing
         GameManager.Instance.gameState = GameState.Playing;
+
+        // .. Play menu music (it's the same menu and ingame music)
         SoundManager.Instance.PlayMenuMusic();
 
         // .. Slide out

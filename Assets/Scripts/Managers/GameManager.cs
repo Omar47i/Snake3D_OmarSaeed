@@ -12,6 +12,9 @@ public enum GameState
 public class FruitAteEventBase : UnityEvent<int, Vector3>
 { }
 
+public class CreateBombEventBase : UnityEvent<int>
+{ }
+
 public class GameManager : MonoBehaviour {
 
     public static GameManager Instance;        // Make it singleton!
@@ -29,7 +32,7 @@ public class GameManager : MonoBehaviour {
     public UnityEvent ResetEvent = new UnityEvent();
 
     [HideInInspector]                          // an event to be invoked when creating a bomb pickup
-    public UnityEvent CreateBombEvent = new UnityEvent();
+    public CreateBombEventBase CreateBombEvent = new CreateBombEventBase();
 
     [HideInInspector]                          // an event to be invoked when destroying the bomb
     public UnityEvent BombDepletedEvent = new UnityEvent();

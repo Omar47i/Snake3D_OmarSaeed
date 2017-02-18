@@ -27,9 +27,9 @@ public class Fruit : PooledObject {
         // .. We collider with the player (fruit's collision layer only collides with the player's head)
         if (GameManager.Instance.gameState == GameState.Playing)
         {
-            GameManager.Instance.FruitAteEvent.Invoke(scoreAddition, transform.position);
+            ObjectsPoolManager.Instance.DestroyPooledGameObject(gameObject);
 
-            ObjectsPoolManager.Instance.DestroyGameObjectWithPooledChildren(gameObject);
+            GameManager.Instance.FruitAteEvent.Invoke(scoreAddition, transform.position);
         }
     }
 
