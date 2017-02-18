@@ -1,0 +1,6 @@
+*Game Metrics*
+- Game is landscape with reference aspect ratio of 16:9.
+- snack dimensions: 0.2 units
+- movement step: 0.2 units
+- fruit dimensions: 0.2 units
+- default distance from camera: 5.72 units

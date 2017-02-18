@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: df6a8794e0a13ce48973e4e2f0b24d7f
+timeCreated: 1487236080
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: THE CURIOUS INCIDENT
+  fontNames:
+  - THE CURIOUS INCIDENT
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
