@@ -1,5 +1,5 @@
 # Snake3D_OmarSaeed
-A simple 3D snake project using Unity 3D
+A simple 3D snake project using Unity 3D, Please download the technical design document with the URI Documents/TechnicalDesignDocument-Snake3D.docx or just display the plain text assiciated with the docx file.
 
 External help:
 The game has been made from scratch, though the following tools has been used:
