@@ -5,4 +5,4 @@ Gameplay Video URL: https://www.youtube.com/watch?v=L9-XlZK-9LI
 
 FaceBook page URL: https://www.facebook.com/secondwarrior/
 
-LinkedIn profile URL: https://linkedin.com/in/omar-saeed-2510b7a6
+LinkedIn profile URL: https://www.linkedin.com/in/omar-ibrahim-2510b7a6/
